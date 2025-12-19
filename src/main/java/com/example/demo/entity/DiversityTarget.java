@@ -1,13 +1,12 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 
 @Entity
 public class DiversityTarget {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer targetYear;
@@ -15,66 +14,33 @@ public class DiversityTarget {
     @ManyToOne
     private DiversityClassification classification;
 
-    @Min(0)
-    @Max(100)
     private Double targetPercentage;
 
-    private Boolean active = true;
+    private Boolean active;
 
-    /* Getters and Setters */
-
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void prePersist() {
+        if (active == null) active = true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public DiversityTarget() {}
 
-    public Integer gettargetYear() {
-        return targetYear;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void settargetYear(Integer targetYear) {
-        this.targetYear = targetYear;
-    }
+    public Integer getTargetYear() { return targetYear; }
+    public void setTargetYear(Integer targetYear) { this.targetYear = targetYear; }
 
-    public DiversityClassification getclassification() {
-        return classification;
-    }
-
-    public void setclassification(DiversityClassification classification) {
+    public DiversityClassification getClassification() { return classification; }
+    public void setClassification(DiversityClassification classification) {
         this.classification = classification;
     }
 
-    public Double gettargetPercentage() {
-        return targetPercentage;
-    }
-
-    public void settargetPercentage(Double targetPercentage) {
+    public Double getTargetPercentage() { return targetPercentage; }
+    public void setTargetPercentage(Double targetPercentage) {
         this.targetPercentage = targetPercentage;
     }
 
-    public Boolean getactive() {
-        return active;
-    }
-
-    public void setactive(Boolean active) {
-        this.active = active;
-    }
-
-    /* Constructors */
-
-    public DiversityTarget(Long id, Integer targetYear,
-                           DiversityClassification classification,
-                           Double targetPercentage, Boolean active) {
-        this.id = id;
-        this.targetYear = targetYear;
-        this.classification = classification;
-        this.targetPercentage = targetPercentage;
-        this.active = active;
-    }
-
-    public DiversityTarget() {
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }

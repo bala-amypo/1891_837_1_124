@@ -1,13 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
 public class DiversityClassification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -15,51 +14,24 @@ public class DiversityClassification {
 
     private String description;
 
-    private Boolean active = true;
+    private Boolean active;
 
-    /* Getters and Setters */
-
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void prePersist() {
+        if (active == null) active = true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public DiversityClassification() {}
 
-    public String getcode() {
-        return code;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setcode(String code) {
-        this.code = code;
-    }
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
 
-    public String getdescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setdescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getactive() {
-        return active;
-    }
-
-    public void setactive(Boolean active) {
-        this.active = active;
-    }
-
-    /* Constructors */
-
-    public DiversityClassification(Long id, String code, String description, Boolean active) {
-        this.id = id;
-        this.code = code;
-        this.description = description;
-        this.active = active;
-    }
-
-    public DiversityClassification() {
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
