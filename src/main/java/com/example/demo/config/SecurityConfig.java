@@ -59,12 +59,14 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
     @Bean
-        public JwtUtil jwtUtil() {
-        // Test-friendly hardcoded values
-        byte[] secret = "my-secret-key-my-secret-key".getBytes();
-        Long expirationMs = 86400000L; // 1 day
+public JwtUtil jwtUtil() {
 
-        return new JwtUtil(secret, expirationMs);
-    }
+    // 32+ characters = 256+ bits (JWT requirement)
+    byte[] secret = "this-is-a-very-secure-256-bit-secret-key!!!".getBytes();
+
+    Long expirationMs = 86400000L; // 1 day
+
+    return new JwtUtil(secret, expirationMs);
+}
 
 }
