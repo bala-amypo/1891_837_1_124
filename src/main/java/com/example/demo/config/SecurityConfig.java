@@ -58,4 +58,13 @@ public class SecurityConfig {
             AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
+    @Bean
+        public JwtUtil jwtUtil() {
+        // Test-friendly hardcoded values
+        byte[] secret = "my-secret-key-my-secret-key".getBytes();
+        Long expirationMs = 86400000L; // 1 day
+
+        return new JwtUtil(secret, expirationMs);
+    }
+
 }
