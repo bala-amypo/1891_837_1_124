@@ -1,13 +1,12 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 
 @Entity
 public class SpendCategory {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -15,51 +14,24 @@ public class SpendCategory {
 
     private String description;
 
-    private Boolean active = true;
+    private Boolean active;
 
-    /* Getters and Setters */
-
-    public Long getId() {
-        return id;
+    @PrePersist
+    public void prePersist() {
+        if (active == null) active = true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public SpendCategory() {}
 
-    public String getname() {
-        return name;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setname(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getdescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setdescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getactive() {
-        return active;
-    }
-
-    public void setactive(Boolean active) {
-        this.active = active;
-    }
-
-    /* Constructors */
-
-    public SpendCategory(Long id, String name, String description, Boolean active) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.active = active;
-    }
-
-    public SpendCategory() {
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
