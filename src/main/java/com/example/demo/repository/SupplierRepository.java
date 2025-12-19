@@ -8,4 +8,6 @@ import java.util.List;
 public interface SupplierRepository extends JpaRepository<Supplier, Long> {
 
     List<Supplier> findByIsActiveTrue();
+    boolean existsByEmail(String email);
+
 }

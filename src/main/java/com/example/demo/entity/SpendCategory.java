@@ -21,8 +21,13 @@ public class SpendCategory {
 
     @PrePersist
     public void prePersist() {
-        if (active == null) active = true;
+        preSave();
     }
+
+    public void preSave() {
+    if (active == null) active = true;
+    }
+
 
     // getters & setters
     public Long getId() { return id; }
