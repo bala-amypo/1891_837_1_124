@@ -53,7 +53,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+public String login(@RequestBody LoginRequest request) {
 
     try {
         authenticationManager.authenticate(
@@ -74,7 +74,8 @@ public class AuthController {
             user.getRole()
     );
 
-    return ResponseEntity.ok(token);
-    }
+    return token;   // ✅ RETURN STRING ONLY
+}
+
 
 }
