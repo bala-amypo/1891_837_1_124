@@ -21,9 +21,9 @@ public class DiversityClassification {
 
     @PrePersist
     public void prePersist() {
-        if (active == null) active = true;
-        if (code != null) code = code.toUpperCase();
+        preSave();
     }
+
     public void preSave() {
     if (active == null) active = true;
     if (code != null) code = code.toUpperCase();
