@@ -56,7 +56,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody LoginRequest request) {
+    public String login(@RequestBody LoginRequest request){
 
         try {
             authenticationManager.authenticate(
@@ -77,11 +77,7 @@ public class AuthController {
                 user.getRole()
         );
 
-        return new JwtResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+        return token;
+
     }
 }
