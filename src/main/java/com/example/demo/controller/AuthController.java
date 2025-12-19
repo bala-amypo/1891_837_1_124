@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-import org.springframework.http.ResponseEntity;
 
 import com.example.demo.dto.JwtResponse;
 import com.example.demo.dto.LoginRequest;
@@ -32,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+public String register(@RequestBody RegisterRequest request) {
 
     UserAccount user = new UserAccount();
     user.setFullName(request.getFullName());
@@ -48,8 +47,9 @@ public class AuthController {
             savedUser.getRole()
     );
 
-    return ResponseEntity.ok(token);
+    return token;   // ✅ RETURN STRING ONLY
 }
+
 
 
     @PostMapping("/login")
