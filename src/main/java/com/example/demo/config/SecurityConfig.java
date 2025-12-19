@@ -22,6 +22,14 @@ public class SecurityConfig {
     }
 
     @Bean
+    public JwtUtil jwtUtil() {
+        // 32+ characters = 256+ bits (JWT requirement)
+        byte[] secret = "this-is-a-very-secure-256-bit-secret-key!!!".getBytes();
+        Long expirationMs = 86400000L; // 1 day
+        return new JwtUtil(secret, expirationMs);
+    }
+
+    @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtil jwtUtil) {
         return new JwtAuthenticationFilter(jwtUtil);
     }
@@ -38,9 +46,14 @@ public class SecurityConfig {
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                        "/auth/**",
+                        "/",                     // portal root access
+                        "/simple-status",        // servlet test
+                        "/error",                // spring error page
+                        "/auth/**",              // login/register
                         "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                        "/swagger-ui/index.html",
+                        "/v3/api-docs/**",
+                        "/v3/api-docs"
                 ).permitAll()
                 .anyRequest().authenticated()
             );
@@ -58,15 +71,4 @@ public class SecurityConfig {
             AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-    @Bean
-public JwtUtil jwtUtil() {
-
-    // 32+ characters = 256+ bits (JWT requirement)
-    byte[] secret = "this-is-a-very-secure-256-bit-secret-key!!!".getBytes();
-
-    Long expirationMs = 86400000L; // 1 day
-
-    return new JwtUtil(secret, expirationMs);
-}
-
 }
