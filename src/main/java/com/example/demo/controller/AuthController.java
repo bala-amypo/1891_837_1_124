@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import org.springframework.http.ResponseEntity;
 
 import com.example.demo.dto.JwtResponse;
 import com.example.demo.dto.LoginRequest;
@@ -31,25 +32,25 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-        public String register(@RequestBody RegisterRequest request){
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
 
-        UserAccount user = new UserAccount();
-        user.setFullName(request.getFullName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setRole(request.getRole());
+    UserAccount user = new UserAccount();
+    user.setFullName(request.getFullName());
+    user.setEmail(request.getEmail());
+    user.setPassword(request.getPassword());
+    user.setRole(request.getRole());
 
-        UserAccount savedUser = userAccountService.register(user);
+    UserAccount savedUser = userAccountService.register(user);
 
-        String token = jwtUtil.generateToken(
-                savedUser.getId(),
-                savedUser.getEmail(),
-                savedUser.getRole()
-        );
+    String token = jwtUtil.generateToken(
+            savedUser.getId(),
+            savedUser.getEmail(),
+            savedUser.getRole()
+    );
 
-        return token;
+    return ResponseEntity.ok(token);
+}
 
-    }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request) {
