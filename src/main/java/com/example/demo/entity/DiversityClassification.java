@@ -24,6 +24,11 @@ public class DiversityClassification {
         if (active == null) active = true;
         if (code != null) code = code.toUpperCase();
     }
+    public void preSave() {
+    if (active == null) active = true;
+    if (code != null) code = code.toUpperCase();
+    }
+
 
     // getters & setters
     public Long getId() { return id; }
