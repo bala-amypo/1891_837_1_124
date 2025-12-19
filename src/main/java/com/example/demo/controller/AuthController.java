@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public JwtResponse register(@RequestBody RegisterRequest request) {
+        public String register(@RequestBody RegisterRequest request){
 
         UserAccount user = new UserAccount();
         user.setFullName(request.getFullName());
@@ -47,12 +47,8 @@ public class AuthController {
                 savedUser.getRole()
         );
 
-        return new JwtResponse(
-                token,
-                savedUser.getId(),
-                savedUser.getEmail(),
-                savedUser.getRole()
-        );
+        return token;
+
     }
 
     @PostMapping("/login")
