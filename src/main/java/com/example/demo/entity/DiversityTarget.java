@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "diversity_targets")
 public class DiversityTarget {
 
     @Id
@@ -11,34 +12,33 @@ public class DiversityTarget {
 
     private Integer targetYear;
 
+    private Double targetPercentage;
+
     @ManyToOne
     private DiversityClassification classification;
 
-    private Double targetPercentage;
-
     private Boolean active;
+
+    public DiversityTarget() {}
 
     @PrePersist
     public void prePersist() {
         if (active == null) active = true;
     }
 
-    public DiversityTarget() {}
-
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Integer getTargetYear() { return targetYear; }
     public void setTargetYear(Integer targetYear) { this.targetYear = targetYear; }
 
+    public Double getTargetPercentage() { return targetPercentage; }
+    public void setTargetPercentage(Double targetPercentage) { this.targetPercentage = targetPercentage; }
+
     public DiversityClassification getClassification() { return classification; }
     public void setClassification(DiversityClassification classification) {
         this.classification = classification;
-    }
-
-    public Double getTargetPercentage() { return targetPercentage; }
-    public void setTargetPercentage(Double targetPercentage) {
-        this.targetPercentage = targetPercentage;
     }
 
     public Boolean getActive() { return active; }

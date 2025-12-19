@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "purchase_orders")
 public class PurchaseOrder {
 
     @Id
@@ -29,6 +30,7 @@ public class PurchaseOrder {
 
     public PurchaseOrder() {}
 
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -46,4 +48,10 @@ public class PurchaseOrder {
 
     public LocalDate getDateIssued() { return dateIssued; }
     public void setDateIssued(LocalDate dateIssued) { this.dateIssued = dateIssued; }
+
+    public String getApprovedBy() { return approvedBy; }
+    public void setApprovedBy(String approvedBy) { this.approvedBy = approvedBy; }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 }

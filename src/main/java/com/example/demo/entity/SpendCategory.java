@@ -3,26 +3,28 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "spend_categories")
 public class SpendCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     private String description;
 
     private Boolean active;
 
+    public SpendCategory() {}
+
     @PrePersist
     public void prePersist() {
         if (active == null) active = true;
     }
 
-    public SpendCategory() {}
-
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

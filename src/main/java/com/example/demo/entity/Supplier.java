@@ -6,16 +6,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "suppliers")
 public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(unique = true)
@@ -32,14 +33,20 @@ public class Supplier {
     @ManyToMany
     private Set<DiversityClassification> diversityClassifications = new HashSet<>();
 
+    public Supplier() {}
+
     @PrePersist
     public void prePersist() {
         if (isActive == null) isActive = true;
-        createdAt = LocalDateTime.now();
+        if (createdAt == null) createdAt = LocalDateTime.now();
     }
 
-    public Supplier() {}
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -50,14 +57,23 @@ public class Supplier {
     public void setEmail(String email) { this.email = email; }
 
     public String getRegistrationNumber() { return registrationNumber; }
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
+    public void setRegistrationNumber(String registrationNumber) { this.registrationNumber = registrationNumber; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
     public Boolean getIsActive() { return isActive; }
-    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
+    public void setIsActive(Boolean active) { isActive = active; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public Set<DiversityClassification> getDiversityClassifications() { return diversityClassifications; }
+    public void setDiversityClassifications(Set<DiversityClassification> diversityClassifications) {
+        this.diversityClassifications = diversityClassifications;
+    }
 }
