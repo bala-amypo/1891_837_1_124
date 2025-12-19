@@ -1,26 +1,42 @@
-PurchaseOrder
+package com.example.demo.model;
 
-Fields:
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-id (Long, PK)
+@Entity
+@Table(name = "purchase_order")
+public class PurchaseOrder {
 
-poNumber (String, unique)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-supplier (ManyToOne Supplier)
+    @Column(nullable = false, unique = true)
+    private String poNumber;
 
-category (ManyToOne SpendCategory)
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplier;
 
-amount (BigDecimal)
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private SpendCategory category;
 
-dateIssued (Date)
+    @NotNull
+    @DecimalMin(value = "0.01", message = "Amount must be greater than 0")
+    @Column(nullable = false)
+    private BigDecimal amount;
 
-approvedBy (String)
+    @NotNull
+    @PastOrPresent(message = "Date cannot be in the future")
+    @Column(nullable = false)
+    private LocalDate dateIssued;
 
-notes (String)
+    private String approvedBy;
 
-Rules:
+    private String notes;
 
-Amount must be > 0.
-
-Date cannot be in the future.
-
+    // getters and setters
+}
