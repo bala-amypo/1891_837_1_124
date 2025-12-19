@@ -52,28 +52,28 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request){
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
 
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            request.getEmail(),
-                            request.getPassword()
-                    )
-            );
-        } catch (AuthenticationException e) {
-            throw new UnauthorizedException("Invalid credentials");
-        }
-
-        UserAccount user = userAccountService.findByEmailOrThrow(request.getEmail());
-
-        String token = jwtUtil.generateToken(
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
+    try {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
         );
-
-        return token;
-
+    } catch (AuthenticationException e) {
+        throw new UnauthorizedException("Invalid credentials");
     }
+
+    UserAccount user = userAccountService.findByEmailOrThrow(request.getEmail());
+
+    String token = jwtUtil.generateToken(
+            user.getId(),
+            user.getEmail(),
+            user.getRole()
+    );
+
+    return ResponseEntity.ok(token);
+    }
+
 }
