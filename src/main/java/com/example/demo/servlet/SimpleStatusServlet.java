@@ -9,13 +9,13 @@ import java.io.PrintWriter;
 public class SimpleStatusServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
         resp.setContentType("text/plain");
 
         PrintWriter out = resp.getWriter();
         out.write("Supplier Diversity Tracker is running");
-        out.flush();   
+        out.flush(); // REQUIRED
     }
 }
