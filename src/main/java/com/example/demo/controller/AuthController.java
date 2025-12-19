@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-public String register(@RequestBody RegisterRequest request) {
+public ResponseEntity<JwtResponse> register(@RequestBody RegisterRequest request) {
 
     UserAccount user = new UserAccount();
     user.setFullName(request.getFullName());
@@ -47,13 +48,21 @@ public String register(@RequestBody RegisterRequest request) {
             savedUser.getRole()
     );
 
-    return token;   // ✅ RETURN STRING ONLY
+    JwtResponse response = new JwtResponse(
+            token,
+            savedUser.getId(),
+            savedUser.getEmail(),
+            savedUser.getRole()
+    );
+
+    return ResponseEntity.ok(response);
 }
 
 
 
+
     @PostMapping("/login")
-public String login(@RequestBody LoginRequest request) {
+public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
 
     try {
         authenticationManager.authenticate(
@@ -74,8 +83,16 @@ public String login(@RequestBody LoginRequest request) {
             user.getRole()
     );
 
-    return token;   // ✅ RETURN STRING ONLY
+    JwtResponse response = new JwtResponse(
+            token,
+            user.getId(),
+            user.getEmail(),
+            user.getRole()
+    );
+
+    return ResponseEntity.ok(response);
 }
+
 
 
 }
