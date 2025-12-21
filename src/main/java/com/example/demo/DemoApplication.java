@@ -1,11 +1,11 @@
 package com.example.demo;
 
 import com.example.demo.servlet.SimpleStatusServlet;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -14,13 +14,23 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
+    // ✅ Used by TESTS (servlet at /)
     @Bean
-    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet(
-            @Value("${app.servlet.path:/}") String path) {
-
+    @Profile("!dev")
+    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
         return new ServletRegistrationBean<>(
                 new SimpleStatusServlet(),
-                path
+                "/"
+        );
+    }
+
+    // ✅ Used in DEV (Swagger safe)
+    @Bean
+    @Profile("dev")
+    public ServletRegistrationBean<SimpleStatusServlet> devSimpleStatusServlet() {
+        return new ServletRegistrationBean<>(
+                new SimpleStatusServlet(),
+                "/simple-status"
         );
     }
 }
