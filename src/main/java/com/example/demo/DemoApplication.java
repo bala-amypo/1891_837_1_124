@@ -14,23 +14,17 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    // ✅ Used by TESTS (servlet at /)
+    // ✅ TEST MODE → servlet at /
     @Bean
     @Profile("!dev")
-    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
-        return new ServletRegistrationBean<>(
-                new SimpleStatusServlet(),
-                "/"
-        );
+    public ServletRegistrationBean<SimpleStatusServlet> testServlet() {
+        return new ServletRegistrationBean<>(new SimpleStatusServlet(), "/");
     }
 
-    // ✅ Used in DEV (Swagger safe)
+    // ✅ DEV MODE → servlet NOT at /
     @Bean
     @Profile("dev")
-    public ServletRegistrationBean<SimpleStatusServlet> devSimpleStatusServlet() {
-        return new ServletRegistrationBean<>(
-                new SimpleStatusServlet(),
-                "/simple-status"
-        );
+    public ServletRegistrationBean<SimpleStatusServlet> devServlet() {
+        return new ServletRegistrationBean<>(new SimpleStatusServlet(), "/simple-status");
     }
 }

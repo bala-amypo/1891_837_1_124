@@ -13,9 +13,8 @@ public class SimpleStatusServlet extends HttpServlet {
             throws IOException {
 
         resp.setContentType("text/plain");
-
         PrintWriter out = resp.getWriter();
         out.write("Supplier Diversity Tracker is running");
-        out.flush(); // REQUIRED
+        out.flush();
     }
 }
