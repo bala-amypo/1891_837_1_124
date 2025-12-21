@@ -14,10 +14,11 @@ public class DemoApplication {
     }
 
     @Bean
-    public ServletRegistrationBean<SupplierDiversityTrackerServlet> supplierServlet() {
+    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
         return new ServletRegistrationBean<>(
-                new SupplierDiversityTrackerServlet(),
-                "/"
-        );
+            new SimpleStatusServlet(),
+            "/simple-status"
+    );
     }
+
 }
