@@ -15,10 +15,11 @@ public class DemoApplication {
 
     // ✅ Move servlet away from root
     @Bean
-    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
-        return new ServletRegistrationBean<>(
-                new SimpleStatusServlet(),
-                "/simple-status"
-        );
-    }
+public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
+    return new ServletRegistrationBean<>(
+            new SimpleStatusServlet(),
+            "/status"   // ✅ NOT "/"
+    );
+}
+
 }
