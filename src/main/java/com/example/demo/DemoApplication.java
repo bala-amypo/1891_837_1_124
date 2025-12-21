@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.servlet.SimpleStatusServlet;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -14,10 +15,12 @@ public class DemoApplication {
     }
 
     @Bean
-    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
+    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet(
+            @Value("${app.servlet.path}") String path) {
+
         return new ServletRegistrationBean<>(
                 new SimpleStatusServlet(),
-                "/simple-status"
+                path
         );
     }
 }
