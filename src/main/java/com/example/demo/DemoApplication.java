@@ -13,13 +13,12 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    // ✅ Move servlet away from root
+    // ✅ REQUIRED FOR TESTS
     @Bean
-public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
-    return new ServletRegistrationBean<>(
-            new SimpleStatusServlet(),
-            "/status"   // ✅ NOT "/"
-    );
-}
-
+    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
+        return new ServletRegistrationBean<>(
+                new SimpleStatusServlet(),
+                "/"
+        );
+    }
 }
