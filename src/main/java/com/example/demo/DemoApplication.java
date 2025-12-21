@@ -16,7 +16,7 @@ public class DemoApplication {
 
     @Bean
     public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet(
-            @Value("${app.servlet.path}") String path) {
+            @Value("${app.servlet.path:/}") String path) {
 
         return new ServletRegistrationBean<>(
                 new SimpleStatusServlet(),
