@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.servlet.SupplierDiversityTrackerServlet;
+import com.example.demo.servlet.SimpleStatusServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -16,9 +16,8 @@ public class DemoApplication {
     @Bean
     public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
         return new ServletRegistrationBean<>(
-            new SimpleStatusServlet(),
-            "/simple-status"
-    );
+                new SimpleStatusServlet(),
+                "/simple-status"
+        );
     }
-
 }
