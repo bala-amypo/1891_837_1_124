@@ -13,7 +13,6 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    // ✅ REQUIRED FOR TESTS
     @Bean
     public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
         return new ServletRegistrationBean<>(
