@@ -14,11 +14,10 @@ public class DemoApplication {
     }
 
     @Bean
-public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
-    return new ServletRegistrationBean<>(
-            new SimpleStatusServlet(),
-            "/status"   // ✅ CHANGE ONLY THIS
-    );
-}
-
+    public ServletRegistrationBean<SimpleStatusServlet> simpleStatusServlet() {
+        return new ServletRegistrationBean<>(
+                new SimpleStatusServlet(),
+                "/"   
+        );
+    }
 }
